@@ -27,17 +27,24 @@
     </parent>
 
     <artifactId>bagit</artifactId>
-    <version>5.0.1-SNAPSHOT</version>
+    <version>5.3.1-SNAPSHOT</version>
 
-    <name>BagIt</name>
-    <url>https://github.com/DANS-KNAW/dd-ingest-flow</url>
-    <description>Ingests auto-deposits into a Dataverse instance</description>
+    <name>bagit</name>
+    <url>https://github.com/DANS-KNAW/bagit-java</url>
+    <description>The BAGIT LIBRARY is a software library intended to support the creation, manipulation, and validation of bags. Its current version is 0.97. It is version aware with the earliest supported version being 0.93.</description>
     <inceptionYear>2022</inceptionYear>
 
     <scm>
         <developerConnection>scm:git:ssh://github.com/DANS-KNAW/${project.artifactId}</developerConnection>
         <tag>HEAD</tag>
     </scm>
+
+    <licenses>
+        <license>
+            <name>No Copyright</name>
+            <url>https://github.com/DANS-KNAW/bagit-java/blob/master/LICENSE.txt</url>
+        </license>
+    </licenses>
 
     <dependencies>
         <dependency>
@@ -91,12 +98,50 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
                     <execution>
-<!--                        <id>check</id> &lt;!&ndash; id is necessary sometimes &ndash;&gt;-->
-                        <phase>none</phase>
+                        <!-- skip this check -->
+                        <phase/>
                     </execution>
                 </executions>
             </plugin>
-
+            <!-- adds integration tests to test sources output -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>add-integration-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/integration/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-jarsigner-plugin</artifactId>-->
+            <!--                <version>3.0.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>sign</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>sign</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                    <execution>-->
+            <!--                        <id>verify</id>-->
+            <!--                        <goals>-->
+            <!--                            <goal>verify</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
     <repositories>
