@@ -123,6 +123,20 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.0</version>
+            </plugin>
             <!--            <plugin>-->
             <!--                <groupId>org.apache.maven.plugins</groupId>-->
             <!--                <artifactId>maven-jarsigner-plugin</artifactId>-->
