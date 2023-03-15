@@ -137,27 +137,71 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.9.0</version>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-jarsigner-plugin</artifactId>-->
-            <!--                <version>3.0.0</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>sign</id>-->
-            <!--                        <goals>-->
-            <!--                            <goal>sign</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                    <execution>-->
-            <!--                        <id>verify</id>-->
-            <!--                        <goals>-->
-            <!--                            <goal>verify</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
+
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.3.0</version>
+                <configuration>
+                    <repoToken>mr7pO5pGDEQvlxaHMMpNmUETwrHovpteY</repoToken>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>2.3.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
+    <!--    <reporting>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.jacoco</groupId>-->
+    <!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+    <!--                <reportSets>-->
+    <!--                    <reportSet>-->
+    <!--                        <reports>-->
+    <!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+    <!--                            <report>report</report>-->
+    <!--                        </reports>-->
+    <!--                    </reportSet>-->
+    <!--                </reportSets>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </reporting>-->
     <repositories>
         <repository>
             <id>dans-releases</id>
