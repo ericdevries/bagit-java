@@ -222,6 +222,12 @@
                             <goal>sign</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
                 </executions>
                 <configuration>
                     <keystore>keystore.jks</keystore>

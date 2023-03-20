@@ -46,7 +46,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build with Maven
-        run: mvn -B clean package --file pom.xml
+        run: mvn -B clean package --file pom.xml -Djarsigner.skip=true
 
   report:
     runs-on: ubuntu-latest
@@ -66,4 +66,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Generate reports and upload
-        run: mvn -B clean test jacoco:report coveralls:report --file pom.xml -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: mvn -B clean test jacoco:report coveralls:report --file pom.xml -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }} -Djarsigner.skip=true

@@ -20,8 +20,8 @@ supported version being 0.93.
 
 ## Requirements
 
-* Java 8
-* gradle (for development only)
+* Java 11
+* Maven (for development only)
 
 ## Support
 
@@ -177,12 +177,11 @@ dependencycheckth rootDir=Paths.get("RootDirectoryOfExistingBag");
 
 ## Developing Bagit-Java
 
-Bagit-Java uses [Gradle](https://gradle.org/) for its build system. Check out the
-great [documentation](https://docs.gradle.org/current/userguide/userguide_single.html) to learn more.
+Bagit-Java uses Maven for its build system.
 
 ##### Running tests and code quality checks
 
-Inside the bagit-java root directory, run `./gradlew check`.
+Inside the bagit-java root directory, run `mvn verify`.
 
 ##### Uploading to maven central
 
@@ -191,17 +190,6 @@ Inside the bagit-java root directory, run `./gradlew check`.
 2. https://issues.sonatype.org/secure/Dashboard.jspa
 2. Once you have access, to create an official release and upload it you should specify the version by running `./gradlew -Pversion=<VERSION> uploadArchives`
 1. *Don't forget to tag the repository!*
-
-##### Uploading to jcenter
-
-1. Follow their guide
-1. https://github.com/bintray/bintray-examples/tree/master/gradle-bintray-plugin-examples
-2. Once you have access, to create an official release and upload it you should specify the version by running `./gradlew -Pversion=<VERSION> bintrayUpload`
-1. *Don't forget to tag the repository!*
-
-### Note if using with Eclipse
-
-Simply run `./gradlew eclipse` and it will automatically create a eclipse project for you that you can import.
 
 ### Roadmap for this library
 
