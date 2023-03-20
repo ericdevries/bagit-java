@@ -26,7 +26,6 @@
         <version>0.16.0</version>
     </parent>
 
-    <groupId>dev.ericdevries</groupId>
     <artifactId>bagit</artifactId>
     <version>5.3.3</version>
 
@@ -280,6 +279,7 @@
             </plugin>
         </plugins>
     </reporting>
+
     <repositories>
         <repository>
             <id>dans-releases</id>
