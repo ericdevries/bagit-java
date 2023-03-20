@@ -16,7 +16,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -25,6 +26,7 @@
         <version>0.16.0</version>
     </parent>
 
+    <groupId>dev.ericdevries</groupId>
     <artifactId>bagit</artifactId>
     <version>5.3.3</version>
 
@@ -98,10 +100,11 @@
                 <executions>
                     <execution>
                         <!-- skip this check -->
-                        <phase />
+                        <phase/>
                     </execution>
                 </executions>
             </plugin>
+
             <!-- adds integration tests to test sources output -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -123,6 +126,7 @@
                 </executions>
             </plugin>
 
+            <!-- generate javadocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -133,24 +137,25 @@
                 </configuration>
             </plugin>
 
+            <!-- generate site with project information -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.9.0</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>2.3.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.eluder.coveralls</groupId>-->
+<!--                <artifactId>coveralls-maven-plugin</artifactId>-->
+<!--                <version>4.3.0</version>-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>javax.xml.bind</groupId>-->
+<!--                        <artifactId>jaxb-api</artifactId>-->
+<!--                        <version>2.3.1</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -205,22 +210,47 @@
             </plugin>
         </plugins>
     </build>
-    <!--    <reporting>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.jacoco</groupId>-->
-    <!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-    <!--                <reportSets>-->
-    <!--                    <reportSet>-->
-    <!--                        <reports>-->
-    <!--                            &lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
-    <!--                            <report>report</report>-->
-    <!--                        </reports>-->
-    <!--                    </reportSet>-->
-    <!--                </reportSets>-->
-    <!--            </plugin>-->
-    <!--        </plugins>-->
-    <!--    </reporting>-->
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.20.0</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>/category/java/bestpractices.xml</ruleset>
+                        <ruleset>/category/java/codestyle.xml</ruleset>
+                        <ruleset>/category/java/design.xml</ruleset>
+                        <ruleset>/category/java/documentation.xml</ruleset>
+                        <ruleset>/category/java/errorprone.xml</ruleset>
+                        <ruleset>/category/java/performance.xml</ruleset>
+                        <ruleset>/category/java/multithreading.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>gov/loc/repository/bagit/domain/**</exclude>
+                        <exclude>gov/loc/repository/bagit/annotations/**</exclude>
+                        <exclude>gov/loc/repository/bagit/exceptions/**</exclude>
+                    </excludes>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
     <repositories>
         <repository>
             <id>dans-releases</id>

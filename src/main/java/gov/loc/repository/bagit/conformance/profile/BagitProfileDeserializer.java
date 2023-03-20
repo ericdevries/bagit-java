@@ -73,8 +73,7 @@ public class BagitProfileDeserializer extends StdDeserializer<BagitProfile> {
   }
 
   /**
-   * Parse required tags due to specification defined at
-   * {@link https://github.com/bagit-profiles/bagit-profiles}
+   * Parse required tags due to specification defined at <a href="https://github.com/bagit-profiles/bagit-profiles">bagit profiles</a>
    * Note: If one of the tags is missing, a NullPointerException is thrown.
    *
    * @param bagitProfileInfoNode Root node of the bagit profile info section.
@@ -101,8 +100,7 @@ public class BagitProfileDeserializer extends StdDeserializer<BagitProfile> {
   }
 
   /**
-   * Parse optional tags due to specification defined at
-   * {@link https://github.com/bagit-profiles/bagit-profiles}
+   * Parse optional tags due to specification defined at <a href="https://github.com/bagit-profiles/bagit-profiles">bagit profiles</a>
    *
    * @param bagitProfileInfoNode Root node of the bagit profile info section.
    * @param profile Representation of bagit profile .
