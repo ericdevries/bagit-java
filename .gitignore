@@ -30,5 +30,4 @@ release.properties
 site
 target/
 venv/
-docs/javadocs/
-docs2
+docs/mvnsite/

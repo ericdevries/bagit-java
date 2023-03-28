@@ -2,6 +2,18 @@ Development
 ===========
 This page contains information for developers about how to contribute to this project.
 
+
+Requirements
+------------
+
+* Java 11
+* Maven
+
+Running tests and code quality checks
+-------------------------------------
+
+Inside the bagit-java root directory, run `mvn verify`.
+
 General
 -------
 
@@ -23,21 +35,3 @@ overboard with this. At a minimum:
 * [Run the documentation site locally](https://dans-knaw.github.io/dans-datastation-architecture/dev/#documentation-with-mkdocs){:target=_blank}
   to check how it renders.
 
-Examples
---------
-Each API endpoint method should have an example program. The program should be easy to read and usable to
-try out the end-point. It usually takes a couple of command line parameters so that the user can point it
-to a specific dataset and try several things without modifying the code. However, these are code examples,
-and as such as intended to be modified for ad hoc testing. Do not add too many parameters or complex logic
-to them.
-
-    !!! alert Connecting to Dataverse on a vagrant box
-
-
-
-Lombok
-------
-Use the [Lombok](https://projectlombok.org/){:target=_blank} annotations to:
-
-* add a logger to classes that may contain logic. Do not add a logger to model classes;
-* automatically generate getters, setters, toString, equals/hashCode and constructors where appropriate.

@@ -3,48 +3,126 @@ Getting started
 
 ## Basic usage
 
-For including the library as a dependency in a Maven project see [the installation instructions](./index.md#installation)
-
-A basic usage example follows:
+### Create a bag from a folder using version 0.97
 
 ```java
+Path folder=Paths.get("FolderYouWantToBag");
+    StandardSupportedAlgorithms algorithm=StandardSupportedAlgorithms.MD5;
+    boolean includeHiddenFiles=false;
+    Bag bag=BagCreator.bagInPlace(folder,Arrays.asList(algorithm),includeHiddenFiles);
+```
 
-public class Test {
+### Read an existing bag (version 0.93 and higher)
 
-    public static void main(String[] args) throws Exception {
-        // Create a client object
-        DataverseClientConfig config = new DataverseClientConfig(
-            new URI("http://localhost:8080/"),
-            "your-api-token-here");
-        DataverseClient client = new DataverseClient(config);
+```java
+Path rootDir=Paths.get("RootDirectoryOfExistingBag");
+    BagReader reader=new BagReader();
+    Bag bag=reader.read(rootDir);
+```
 
-        // Call an API end-point
-        DataverseResponse<Dataverse> response = client.dataverse("root").view();
+### Write a Bag object to disk
 
-        // Retrieve response data as model object
-        Dataverse dv = response.getData();
+```java
+Path outputDir=Paths.get("WhereYouWantToWriteTheBagTo");
+    BagWriter.write(bag,outputDir); //where bag is a Bag object
+```
 
-        // Query object
-        System.out.println(dv.getDescription());
+### Verify Complete
+
+```java
+boolean ignoreHiddenFiles=true;
+    BagVerifier verifier=new BagVerifier();
+    verifier.isComplete(bag,ignoreHiddenFiles);
+```
+
+### Verify Valid
+
+```java
+boolean ignoreHiddenFiles=true;
+    BagVerifier verifier=new BagVerifier();
+    verifier.isValid(bag,ignoreHiddenFiles);
+```
+
+### Quickly verify by payload-oxum
+
+```java
+boolean ignoreHiddenFiles=true;
+    if(BagVerifier.canQuickVerify(bag)){
+    BagVerifier.quicklyVerify(bag,ignoreHiddenFiles);
+    }
+```
+
+### Add other checksum algorithms
+
+You only need to implement 2 interfaces:
+
+```java
+public class MyNewSupportedAlgorithm implements SupportedAlgorithm {
+    @Override
+    public String getMessageDigestName() {
+        return "SHA3-256";
     }
 
+    @Override
+    public String getBagitName() {
+        return "sha3256";
+    }
+}
+
+public class MyNewNameMapping implements BagitAlgorithmNameToSupportedAlgorithmMapping {
+    @Override
+    public SupportedAlgorithm getMessageDigestName(String bagitAlgorithmName) {
+        if ("sha3256".equals(bagitAlgorithmName)) {
+            return new MyNewSupportedAlgorithm();
+        }
+
+        return StandardSupportedAlgorithms.valueOf(bagitAlgorithmName.toUpperCase());
+    }
 }
 ```
 
-1. First you need to create a client object. This object can be reused when calling the same Dataverse instance multiple times.
-2. The API end-points are grouped in roughly the same way as they appear in the Dataverse documentation: dataverse collection end-points, dataset end-points,
-   etc.
-3. The result is a `DataverseHttpResponse` object, if successful, otherwise an exception.
-4. If Dataverse's response is a JSON document, this is converted to a model object, a simple value object. You can retrieve that from the response using the
-   `getData` method.
+and then add the implemented `BagitAlgorithmNameToSupportedAlgorithmMapping`
+class to your `BagReader` or `bagVerifier` object before using their methods.
 
-## Running the examples
+### Check for potential problems
 
-More examples can be found in the [examples sub-module](https://github.com/DANS-KNAW/dans-dataverse-client-lib/tree/master/examples/){:target=_blank:}. To
-run an example:
+The BagIt format is extremely flexible and allows for some conditions which are
+technically allowed but should be avoided to minimize confusion and maximize
+portability. The `BagLinter` class allows you to easily check a bag for
+warnings:
 
-1. Copy the supplied `dataverse.properties.template` to `dataverse.properties`.
-2. Edit the properties to match your setup. For example; when running Dataverse on localhost, set the `baseUrl=http://localhost:8080`.
-3. Run [one of the programs]{:target=_blank} providing sensible command line parameters where required.
+```java
+Path rootDir=Paths.get("RootDirectoryOfExistingBag");
+    BagLinter linter=new BagLinter();
+    List<BagitWarning> warnings=linter.lintBag(rootDir,Collections.emptyList());
+```
 
-[one of the programs]: https://github.com/DANS-KNAW/dans-dataverse-client-lib/tree/master/examples/src/main/java/nl/knaw/dans/lib/dataverse/example
+You can provide a list of specific warnings to ignore:
+
+```java
+Path rootDir=Paths.get("RootDirectoryOfExistingBag");
+    BagLinter linter=new BagLinter();
+    List<BagitWarning> warnings=linter.lintBag(rootDir,Arrays.asList(BagitWarning.OLD_BAGIT_VERSION);
+```
+
+### Serialization
+
+The dans-bagit-lib does not support directly
+serializing a bag to an archive file. The examples show how to implement a
+custom serializer for the
+[zip](https://github.com/DANS-KNAW/dans-bagit-lib/blob/master/src/test/java/nl/knaw/dans/bagit/examples/serialization/CreateZipBagExample.java)
+and
+[tar](https://github.com/DANS-KNAW/dans-bagit-lib/blob/master/src/test/java/nl/knaw/dans/bagit/examples/serialization/CreateTarBagExample.java)
+formats.
+
+### Fetching
+
+If you need `fetch.txt` functionality, the
+[`FetchHttpFileExample` example](https://github.com/DANS-KNAW/dans-bagit-lib/blob/master/src/test/java/nl/knaw/dans/bagit/examples/fetching/FetchHttpFileExample.java)
+demonstrates how you can implement this feature with your additional application
+and workflow requirements.
+
+### Internationalization
+
+All logging and error messages have been put into a [ResourceBundle](https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.html).
+This allows for all the messages to be translated to multiple languages and automatically used during runtime.

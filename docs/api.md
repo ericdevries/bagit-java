@@ -1,7 +1,7 @@
 JavaDocs
 ========
 
-Open the [JavaDocs]{:target=_blank:} in a new tab.
+Open the [Maven site]{:target=_blank:} in a new tab.
 
 
-[JavaDocs]: javadocs/index.html
+[Maven site]: mvnsite/index.html

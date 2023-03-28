@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - DD-1327
-        
 
 jobs:
   mkdocs:
@@ -30,10 +29,17 @@ jobs:
         with:
           distribution: adopt-openj9
           java-version: 11
-      - name: Generate javadocs
-        run: mvn clean javadoc:javadoc
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-docs-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-docs-
+      - name: Generate maven site
+        run: mvn clean site
       - name: Copy javadocs to site folder
-        run: cp -r target/site/apidocs docs/javadocs/
+        run: cp -r target/site/ docs/mvnsite/
       - name: Run script
         run: bash .github/workflows/mkdocs/mkdocs.sh
         shell: bash
