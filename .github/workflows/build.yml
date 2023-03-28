@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - DD-1316
   pull_request:
     branches:
       - master
