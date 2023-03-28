@@ -14,17 +14,17 @@
 # limitations under the License.
 #
 
-site_name: dd-ingest-flow
+site_name: dans-bagit-lib
 theme:
   name: readthedocs
 
-repo_name: DANS-KNAW/dd-ingest-flow
-repo_url: https://github.com/DANS-KNAW/dd-ingest-flow
+repo_name: DANS-KNAW/dans-bagit-lib
+repo_url: https://github.com/DANS-KNAW/dans-bagit-lib
 
 nav:
   - Manual: index.md
   - Getting started: getting-started.md
-  - JavaDocs: api.md
+  - Maven site: api.md
   - Development: dev.md
 
 extra:
