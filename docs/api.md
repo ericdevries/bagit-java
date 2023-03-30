@@ -1,7 +1,6 @@
-JavaDocs
+Maven project info
 ========
 
-Open the [Maven site]{:target=_blank:} in a new tab.
+Open the [Maven project info]{:target=_blank:} in a new tab.
 
-
-[Maven site]: mvnsite/index.html
+[Maven project info]: mvnsite/index.html

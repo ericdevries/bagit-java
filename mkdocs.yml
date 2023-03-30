@@ -24,7 +24,8 @@ repo_url: https://github.com/DANS-KNAW/dans-bagit-lib
 nav:
   - Manual: index.md
   - Getting started: getting-started.md
-  - Maven site: api.md
+  - JavaDoc: javadoc.md
+  - Maven project info: api.md
   - Development: dev.md
 
 extra:

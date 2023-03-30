@@ -19,7 +19,7 @@ supported version being 0.93.
 
 See: <https://datatracker.ietf.org/doc/html/rfc8493>{:target=_blank}.
 
-This library was first developed by the [LibraryOfCongress](https://github.com/LibraryOfCongress/bagit-java/) and
+This library was first developed by the [LibraryOfCongress](https://github.com/LibraryOfCongress/bagit-java/){:target=_blank:} and
 forked by DANS-KNAW.
 
 INSTALLATION
